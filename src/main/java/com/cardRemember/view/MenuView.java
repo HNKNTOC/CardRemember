@@ -1,10 +1,10 @@
 package com.cardRemember.view;
 
-import com.cardRemember.model.FailedViewModel;
 import com.cardRemember.model.Model;
 import com.cardRemember.model.ModelType;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,32 +17,46 @@ public class MenuView extends SwingView {
 
     public static final String menuItems = "MenuItems";
 
-    @Override
-    public void show(Model model) throws FailedViewModel {
-        if (model.getModelType() == ModelType.Menu){
-            List<MenuItem> data = (List<MenuItem>) model.getData(menuItems);
-            mainFrame.add(createMenuPanel(data));
-            update();
-        }else {
-            throw new FailedViewModel("View not able to display this model.");
-        }
+    public MenuView() {
+        super(ModelType.Menu);
     }
 
-    private JPanel createMenuPanel(List<MenuItem> itemsList){
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+
+    @Override
+    void processingDataFromModel(Model model) {
+        List<MenuItem> data = (List<MenuItem>) model.getData(menuItems);
+        mainFrame.add(createMenuPanel(data));
+        update();
+    }
+
+    private JPanel createMenuPanel(List<MenuItem> itemsList) {
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+
+        JPanel itemPanel = new JPanel();
+        settingMenuItems(itemPanel, itemsList);
+
+        JPanel labelPanel = new JPanel();
+        labelPanel.add(new JLabel("Hello this menu label."));
+
+        mainPanel.add(labelPanel, BorderLayout.NORTH);
+        mainPanel.add(itemPanel, BorderLayout.CENTER);
+        return mainPanel;
+    }
+
+    private void settingMenuItems(JPanel panel, List<MenuItem> itemsList) {
+        panel.setLayout(new GridLayout(0, 1));
         for (MenuItem menuItem : itemsList) {
             JButton button = new JButton();
             menuItem.useFor(button);
             panel.add(button);
         }
-        return panel;
     }
 
     /**
      * This use for setting Menu Item.
      */
-    public static class MenuItem{
+    public static class MenuItem {
         private String label = "DefaultLabelItem";
         private List<ActionListener> listenerList = new ArrayList<>();
         private JButton item;
@@ -53,16 +67,17 @@ public class MenuView extends SwingView {
 
         /**
          * Update for last item.
+         *
          * @return False if item == null.
          */
-        public boolean update(){
-            if(item == null)
+        public boolean update() {
+            if (item == null)
                 return false;
             useFor(item);
             return true;
         }
 
-        private void useFor(JButton item){
+        private void useFor(JButton item) {
             this.item = item;
             item.setText(label);
             removeAllListeners(item);
@@ -73,19 +88,20 @@ public class MenuView extends SwingView {
 
         /**
          * Remove all listeners in {@link JButton}.
+         *
          * @param item In item need delete listeners.
          */
         private void removeAllListeners(JButton item) {
-            for( ActionListener listener: item.getActionListeners() ) {
+            for (ActionListener listener : item.getActionListeners()) {
                 item.removeActionListener(listener);
             }
         }
 
-        public void addListener(ActionListener listener){
+        public void addListener(ActionListener listener) {
             listenerList.add(listener);
         }
 
-        public boolean removeListener(ActionListener listener){
+        public boolean removeListener(ActionListener listener) {
             return listenerList.remove(listener);
         }
 
