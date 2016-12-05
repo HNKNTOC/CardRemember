@@ -11,15 +11,23 @@ import java.util.Map;
  */
 public abstract class Model {
     private static final Logger LOGGER = LogManager.getLogger(Model.class);
-
+    private final ModelType modelType;
     private Map<String,Object> mapData = new HashMap<>();
+
+    public Model(ModelType modelType) {
+        this.modelType = modelType;
+    }
+
+    public ModelType getModelType() {
+        return modelType;
+    }
 
     /**
      * Set data in model.
      * @param key Key for get data.
      * @param data Data which need set.
      */
-    protected void setData(String key,Object data){
+    public void setData(String key,Object data){
         mapData.put(key,data);
     }
 

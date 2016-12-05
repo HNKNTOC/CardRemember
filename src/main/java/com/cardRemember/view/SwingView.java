@@ -1,33 +1,29 @@
 package com.cardRemember.view;
 
 import javax.swing.*;
-import java.util.Observable;
-import java.util.Observer;
 
 /**
  * View menu for choice menu items.
  */
-public class SwingView extends Observable implements View{
+public abstract class SwingView implements View{
 
-    private JFrame mainFrame;
-    private MenuFactory factory;
+    protected JFrame mainFrame;
 
-    public SwingView(String title) {
-        this.mainFrame = new JFrame(title);
-    }
-
-    @Override
-    public void addObserver(Observer observer) {
-        super.addObserver(observer);
+    public SwingView() {
+        this.mainFrame = new JFrame();
+        mainFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        mainFrame.pack();
     }
 
     @Override
     public void update() {
-
+        mainFrame.repaint();
+        mainFrame.setVisible(true);
     }
 
     @Override
     public void close() {
-
+        mainFrame.setVisible(false);
+        mainFrame = null;
     }
 }

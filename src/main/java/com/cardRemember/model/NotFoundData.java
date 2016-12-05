@@ -1,7 +1,7 @@
 package com.cardRemember.model;
 
 /**
- * Used in cases if you are not able to find the data.
+ * Used in cases if not able to find the data in model.
  */
 public class NotFoundData extends RuntimeException {
     public NotFoundData() {
