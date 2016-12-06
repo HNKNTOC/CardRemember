@@ -1,8 +1,8 @@
 package com.cardRemember;
 
 
-import com.cardRemember.model.Model;
-import com.cardRemember.model.ModelType;
+import com.cardRemember.model.Data;
+import com.cardRemember.model.DataType;
 import com.cardRemember.view.MenuView;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -12,12 +12,13 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.cardRemember.view.MenuView.MenuItem.createItem;
+
 public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
     public static void main(String[] args) {
-        MenuView menuView = new MenuView();
-        Model model = new Model(ModelType.Menu) {
-        };
+        Data data = new Data(DataType.Menu);
+
         List<MenuView.MenuItem> items = new ArrayList<>();
 
         AbstractAction abstractAction = new AbstractAction() {
@@ -31,14 +32,9 @@ public class Main {
         items.add(createItem("Item 2",abstractAction));
         items.add(createItem("Item 3",abstractAction));
 
-        model.setData(MenuView.menuItems, items);
-        menuView.show(model);
-    }
-
-     private static MenuView.MenuItem createItem(String label, AbstractAction listener){
-        MenuView.MenuItem menuItem = new MenuView.MenuItem(label);
-        menuItem.addListener(listener);
-        return menuItem;
+        MenuView menuView = new MenuView();
+        data.setData(MenuView.menuItems, items);
+        menuView.show(data);
     }
 
 }

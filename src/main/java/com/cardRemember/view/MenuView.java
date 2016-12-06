@@ -1,7 +1,7 @@
 package com.cardRemember.view;
 
-import com.cardRemember.model.Model;
-import com.cardRemember.model.ModelType;
+import com.cardRemember.model.Data;
+import com.cardRemember.model.DataType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,12 +18,12 @@ public class MenuView extends SwingView {
     public static final String menuItems = "MenuItems";
 
     public MenuView() {
-        super(ModelType.Menu);
+        super(DataType.Menu);
     }
 
 
     @Override
-    void processingDataFromModel(Model model) {
+    void processingDataFromModel(Data model) {
         List<MenuItem> data = (List<MenuItem>) model.getData(menuItems);
         mainFrame.add(createMenuPanel(data));
         update();
@@ -84,6 +84,12 @@ public class MenuView extends SwingView {
             for (ActionListener listener : listenerList) {
                 item.addActionListener(listener);
             }
+        }
+
+        public static MenuView.MenuItem createItem(String label, AbstractAction listener){
+            MenuView.MenuItem menuItem = new MenuView.MenuItem(label);
+            menuItem.addListener(listener);
+            return menuItem;
         }
 
         /**

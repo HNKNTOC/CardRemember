@@ -1,8 +1,8 @@
 package com.cardRemember.view;
 
+import com.cardRemember.model.Data;
 import com.cardRemember.model.FailedViewModel;
-import com.cardRemember.model.Model;
-import com.cardRemember.model.ModelType;
+import com.cardRemember.model.DataType;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -16,30 +16,30 @@ public abstract class SwingView implements View{
 
     protected JFrame mainFrame;
     /**
-     * Model Type which can display this View.
+     * Data Type which can display this View.
      */
-    private final ModelType displayModelType;
+    private final DataType displayDataType;
 
 
-    public SwingView(ModelType displayModelType) {
-        this.displayModelType = displayModelType;
+    public SwingView(DataType displayDataType) {
+        this.displayDataType = displayDataType;
         this.mainFrame = new JFrame();
         mainFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     @Override
-    public void show(Model model) throws FailedViewModel {
-        ModelType modelType = model.getModelType();
-        if (modelType != ModelType.Menu)
+    public void show(Data data) throws FailedViewModel {
+        DataType dataType = data.getDataType();
+        if (dataType != DataType.Menu)
             throw new FailedViewModel(
-                    String.format("This view not able to display model \"%s\". This view display \"%s\".",
-                            modelType,
-                            this.displayModelType));
+                    String.format("This view not able to display data \"%s\". This view display \"%s\".",
+                            dataType,
+                            this.displayDataType));
 
         try {
-            processingDataFromModel(model);
+            processingDataFromModel(data);
         } catch (Exception e) {
-            FailedViewModel failedViewModel = new FailedViewModel("Failed processing Data From Model.",e);
+            FailedViewModel failedViewModel = new FailedViewModel("Failed processing data from data.",e);
             LOGGER.warn(failedViewModel);
             throw failedViewModel;
         }
@@ -48,7 +48,7 @@ public abstract class SwingView implements View{
     /**
      * Gets the data models and working with them.
      */
-    abstract void processingDataFromModel(Model model);
+    abstract void processingDataFromModel(Data data);
 
     @Override
     public void update() {
