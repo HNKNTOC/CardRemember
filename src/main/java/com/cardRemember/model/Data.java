@@ -14,11 +14,14 @@ public class Data {
     private final DataType dataType;
     private Map<String,Object> mapData = new HashMap<>();
 
+    public Data(DataType dataType, Map<String, Object> mapData) {
+        this.dataType = dataType;
+        this.mapData = mapData;
+    }
+
     public Data(DataType dataType) {
         this.dataType = dataType;
     }
-
-
 
     public DataType getDataType() {
         return dataType;
@@ -86,5 +89,21 @@ public class Data {
             throw failed;
         }
         return data;
+    }
+
+    public int getSize() {
+        return mapData.size();
+    }
+
+    public void clear() {
+        mapData.clear();
+    }
+
+    @Override
+    public String toString() {
+        return "Data{" +
+                "dataType=" + dataType +
+                ", mapData=" + mapData +
+                '}';
     }
 }

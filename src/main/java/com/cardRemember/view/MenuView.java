@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class MenuView extends SwingView {
 
-    public static final String menuItems = "MenuItems";
+    public static final String KeyMenuItems = "MenuItems";
 
     public MenuView() {
         super(DataType.Menu);
@@ -24,7 +24,7 @@ public class MenuView extends SwingView {
 
     @Override
     void processingDataFromModel(Data model) {
-        List<MenuItem> data = (List<MenuItem>) model.getData(menuItems);
+        List<MenuItem> data = (List<MenuItem>) model.getData(KeyMenuItems);
         mainFrame.add(createMenuPanel(data));
         update();
     }
@@ -63,6 +63,11 @@ public class MenuView extends SwingView {
 
         public MenuItem(String label) {
             this.label = label;
+        }
+
+        public MenuItem(String label, List<ActionListener> listenerList) {
+            this.label = label;
+            this.listenerList = listenerList;
         }
 
         /**
@@ -117,6 +122,13 @@ public class MenuView extends SwingView {
 
         public void setLabel(String label) {
             this.label = label;
+        }
+
+        @Override
+        public String toString() {
+            return "MenuItem{" +
+                    "label='" + label + '\'' +
+                    '}';
         }
     }
 

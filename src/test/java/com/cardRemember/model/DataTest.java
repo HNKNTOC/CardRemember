@@ -25,6 +25,21 @@ public class DataTest {
     }
 
     @Test
+    public void checkClear() throws Exception {
+        data.setData(keyForString,testString);
+        assertEquals(data.getSize(),1);
+        data.clear();
+        assertEquals(data.getSize(),0);
+
+
+    }
+
+    @Test()
+    public void checkDataType() throws Exception {
+        assertTrue(data.getDataType() == DataType.Default);
+    }
+
+    @Test
     @UseDataProvider("dataForTestingExtraction")
     public void checkGetData(String key,Object value) throws Exception {
         data.setData(key,value);
