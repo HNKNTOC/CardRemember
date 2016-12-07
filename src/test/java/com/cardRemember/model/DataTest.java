@@ -26,7 +26,7 @@ public class DataTest {
 
     @Test
     public void checkClear() throws Exception {
-        data.setData(keyForString,testString);
+        data.setValue(keyForString,testString);
         assertEquals(data.getSize(),1);
         data.clear();
         assertEquals(data.getSize(),0);
@@ -42,42 +42,42 @@ public class DataTest {
     @Test
     @UseDataProvider("dataForTestingExtraction")
     public void checkGetData(String key,Object value) throws Exception {
-        data.setData(key,value);
-        assertEquals("Failed getting data by key = "+key,data.getData(key),value);
+        data.setValue(key,value);
+        assertEquals("Failed getting data by key = "+key,data.getValue(key),value);
     }
 
     @Test(expected=IllegalArgumentException.class)
     public void ifKeyEqualsNull() throws Exception {
-        data.setData(null,new Object());
+        data.setValue(null,new Object());
     }
 
     @Test(expected=FailedGettingData.class)
     public void ifDataNotFound() throws Exception {
-        data.getData(keyForString);
+        data.getValue(keyForString);
     }
 
     @Test()
     public void getStringOfData() throws Exception {
-        data.setData(keyForString, testString);
+        data.setValue(keyForString, testString);
         assertEquals(data.getString(keyForString),testString);
     }
 
     @Test(expected = FailedGettingData.class)
     public void getFailingStringOfData() throws Exception {
-        data.setData(keyForString, new Object());
+        data.setValue(keyForString, new Object());
         data.getString(keyForString);
     }
 
     @Test()
     public void getIntOfData() throws Exception {
         int value = 5432;
-        data.setData(keyForString, value);
+        data.setValue(keyForString, value);
         assertEquals(data.getInt(keyForString),value);
     }
 
     @Test(expected = FailedGettingData.class)
     public void getFailingIntOfData() throws Exception {
-        data.setData(keyForString, testString);
+        data.setValue(keyForString, testString);
         data.getInt(keyForString);
     }
 }

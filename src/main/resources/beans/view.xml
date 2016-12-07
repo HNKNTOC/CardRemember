@@ -24,7 +24,7 @@
         <ref bean="menuItems3"/>
     </util:list>
 
-    <bean name="dataMenu" class="com.cardRemember.model.Data" c:dataType="Menu">
+    <bean name="dataMenu" class="com.cardRemember.model.Data" c:dataType="Default">
         <constructor-arg name="mapData">
             <map>
                 <entry value-ref="menuItemsList">

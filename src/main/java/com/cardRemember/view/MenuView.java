@@ -6,7 +6,6 @@ import com.cardRemember.model.DataType;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +25,7 @@ public class MenuView extends SwingView {
 
     @Override
     void processingDataFromModel(Data model) {
-        List<MenuItem> data = (List<MenuItem>) model.getData(KeyMenuItems);
+        List<MenuItem> data = (List<MenuItem>) model.getValue(KeyMenuItems);
         mainFrame.add(createMenuPanel(data));
         update();
     }

@@ -1,6 +1,7 @@
 package com.cardRemember;
 
 
+import com.cardRemember.controller.MenuController;
 import com.cardRemember.model.Data;
 import com.cardRemember.view.MenuView;
 import org.apache.log4j.LogManager;
@@ -16,8 +17,9 @@ public class Main {
         Data data = context.getBean("dataMenu",Data.class);
 
         System.out.println(data);
-
         MenuView menuView = new MenuView();
-        menuView.show(data);
+
+        MenuController menuController = new MenuController(menuView,data);
+        menuController.update();
     }
 }

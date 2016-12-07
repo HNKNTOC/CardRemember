@@ -28,13 +28,13 @@ public class Data {
     }
 
     /**
-     * Set data in model.
-     * @param key Key for get data. Not equals null.
-     * @param data Data which need set.
+     * Set value in model.
+     * @param key Key for get value. Not equals null.
+     * @param value Value which need set.
      */
-    public void setData(String key,Object data){
+    public void setValue(String key, Object value){
         if (key == null) throw new IllegalArgumentException("Key not equals null.");
-        mapData.put(key,data);
+        mapData.put(key,value);
     }
 
     /**
@@ -43,7 +43,7 @@ public class Data {
      * @return Data appropriate key.
      * @throws FailedGettingData If failed get data.
      */
-    public Object getData(String key) throws FailedGettingData {
+    public Object getValue(String key) throws FailedGettingData {
         if (key == null) throw new IllegalArgumentException("Key not equals null.");
         Object o = mapData.get(key);
         if (o == null) {
@@ -63,7 +63,7 @@ public class Data {
     public String getString(String key) throws FailedGettingData {
         String data;
         try {
-            data = (String) getData(key);
+            data = (String) getValue(key);
         } catch (ClassCastException  e) {
             FailedGettingData failed = new FailedGettingData("Failed get string by key = " + key, e);
             LOGGER.warn(failed);
@@ -81,7 +81,7 @@ public class Data {
     public int getInt(String key) throws FailedGettingData {
         int data;
         try {
-            String s = getData(key).toString();
+            String s = getValue(key).toString();
             data = Integer.parseInt(s);
         } catch (ClassCastException | NumberFormatException e) {
             FailedGettingData failed = new FailedGettingData("Failed get int by key = " + key, e);

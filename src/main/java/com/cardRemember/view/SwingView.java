@@ -1,8 +1,8 @@
 package com.cardRemember.view;
 
 import com.cardRemember.model.Data;
-import com.cardRemember.model.FailedViewModel;
 import com.cardRemember.model.DataType;
+import com.cardRemember.model.FailedViewModel;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -11,14 +11,13 @@ import javax.swing.*;
 /**
  * View menu for choice menu items.
  */
-public abstract class SwingView implements View{
+public abstract class SwingView implements View {
     private static final Logger LOGGER = LogManager.getLogger(SwingView.class);
-
-    protected JFrame mainFrame;
     /**
      * Data Type which can display this View.
      */
     private final DataType displayDataType;
+    protected JFrame mainFrame;
 
 
     public SwingView(DataType displayDataType) {
@@ -28,18 +27,16 @@ public abstract class SwingView implements View{
     }
 
     @Override
-    public void show(Data data) throws FailedViewModel {
-        DataType dataType = data.getDataType();
-        if (dataType != DataType.Menu)
-            throw new FailedViewModel(
-                    String.format("This view not able to display data \"%s\". This view display \"%s\".",
-                            dataType,
-                            this.displayDataType));
+    public DataType getDataType() {
+        return displayDataType;
+    }
 
+    @Override
+    public void show(Data data) throws FailedViewModel {
         try {
             processingDataFromModel(data);
         } catch (Exception e) {
-            FailedViewModel failedViewModel = new FailedViewModel("Failed processing data from data.",e);
+            FailedViewModel failedViewModel = new FailedViewModel("Failed processing data from data.", e);
             LOGGER.warn(failedViewModel);
             throw failedViewModel;
         }
