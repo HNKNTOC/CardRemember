@@ -6,7 +6,9 @@ import com.cardRemember.model.DataType;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -65,9 +67,9 @@ public class MenuView extends SwingView {
             this.label = label;
         }
 
-        public MenuItem(String label, List<ActionListener> listenerList) {
+        public MenuItem(String label, ActionListener... listeners) {
             this.label = label;
-            this.listenerList = listenerList;
+            this.listenerList = Arrays.asList(listeners);
         }
 
         /**

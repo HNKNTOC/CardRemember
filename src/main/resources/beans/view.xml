@@ -7,30 +7,15 @@
     <bean name="listenerItemOne" class="com.cardRemember.controller.MenuController$ListenerItemOne"/>
 
     <bean name="menuItems1" class="com.cardRemember.view.MenuView.MenuItem"
-          c:label="Item 1">
-        <constructor-arg name="listenerList">
-            <list>
-                <ref bean="listenerItemOne"/>
-            </list>
-        </constructor-arg>
+          c:label="Item 1" c:listeners-ref="listenerItemOne">
     </bean>
 
     <bean name="menuItems2" class="com.cardRemember.view.MenuView.MenuItem"
-          c:label="Item 1">
-        <constructor-arg name="listenerList">
-            <list>
-                <ref bean="listenerItemOne"/>
-            </list>
-        </constructor-arg>
+          c:label="Item 2" c:listeners-ref="listenerItemOne">
     </bean>
 
     <bean name="menuItems3" class="com.cardRemember.view.MenuView.MenuItem"
-          c:label="Item 1">
-        <constructor-arg name="listenerList">
-            <list>
-                <ref bean="listenerItemOne"/>
-            </list>
-        </constructor-arg>
+          c:label="Item 3" c:listeners-ref="listenerItemOne">
     </bean>
 
     <util:list id="menuItemsList" value-type="java.lang.String">
@@ -43,7 +28,9 @@
         <constructor-arg name="mapData">
             <map>
                 <entry value-ref="menuItemsList">
-                    <key><util:constant static-field="com.cardRemember.view.MenuView.KeyMenuItems"/></key>
+                    <key>
+                        <util:constant static-field="com.cardRemember.view.MenuView.KeyMenuItems"/>
+                    </key>
                 </entry>
             </map>
         </constructor-arg>

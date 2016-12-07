@@ -14,7 +14,9 @@ public class Main {
 
     public static void main(String[] args) {
         Data data = context.getBean("dataMenu",Data.class);
+
         System.out.println(data);
+
         MenuView menuView = new MenuView();
         menuView.show(data);
     }
