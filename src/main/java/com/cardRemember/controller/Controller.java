@@ -5,11 +5,14 @@ import com.cardRemember.help.ValidatorData;
 import com.cardRemember.model.Data;
 import com.cardRemember.model.DataType;
 import com.cardRemember.view.View;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 /**
  * Controller need for management {@link Data} and {@link com.cardRemember.view.View}
  */
 public class Controller {
+    private static final Logger LOGGER = LogManager.getLogger(Controller.class);
     private View view;
     private Data data;
     private ValidatorData validatorData = new ValidatorData();
@@ -17,7 +20,7 @@ public class Controller {
     public Controller(Data data, View view) {
         this.data = data;
         this.view = view;
-        validatorData.addCustomValidator(new ValidatorDataType());
+        validatorData.addCustomValidator(new ValidatorDataType(view.getDataType()));
     }
 
     public View getView() {
@@ -49,15 +52,25 @@ public class Controller {
         view.show(data);
     }
 
-    class ValidatorDataType implements ValidatorData.CustomValidator{
+    static class ValidatorDataType implements ValidatorData.CustomValidator{
+        private static final Logger LOGGER = LogManager.getLogger(ValidatorDataType.class);
+        private final DataType dataType;
+
+        public ValidatorDataType(DataType dataType) {
+            this.dataType = dataType;
+        }
+
         @Override
         public void validation(Data data) throws FailedValidation {
             DataType dataType = data.getDataType();
-            if (dataType != DataType.Menu)
-                throw new FailedValidation(
+            if (dataType != DataType.Menu) {
+                FailedValidation failedValidation = new FailedValidation(
                         String.format("This view not able to display data \"%s\". This view display \"%s\".",
                                 dataType,
-                                view.getDataType()));
+                                this.dataType));
+                LOGGER.warn(failedValidation);
+                throw failedValidation;
+            }
         }
     }
 
