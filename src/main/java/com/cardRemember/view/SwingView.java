@@ -36,7 +36,7 @@ public abstract class SwingView implements View {
         try {
             processingDataFromModel(data);
         } catch (Exception e) {
-            FailedViewModel failedViewModel = new FailedViewModel("Failed processing data from data.", e);
+            FailedViewModel failedViewModel = new FailedViewModel("Failed processing data.", e,data);
             LOGGER.warn(failedViewModel);
             throw failedViewModel;
         }
