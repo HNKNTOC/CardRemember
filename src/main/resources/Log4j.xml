@@ -8,8 +8,13 @@
         </layout>
     </appender>
 
+    <logger name="com.cardRemember">
+        <level value="DEBUG"/>
+        <appender-ref ref="Console"/>
+    </logger>
+
     <root>
-        <priority value="TRACE"/>
+        <priority value="WARN"/>
         <appender-ref ref="Console" />
     </root>
 
