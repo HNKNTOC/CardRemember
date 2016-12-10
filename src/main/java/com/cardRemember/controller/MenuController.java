@@ -20,6 +20,11 @@ public class MenuController extends Controller {
 
     public static class ListenerItemOne implements ActionListener{
         private static final Logger LOGGER = LogManager.getLogger(ListenerItemOne.class);
+
+        public ListenerItemOne() {
+            LOGGER.info("Create");
+        }
+
         @Override
         public void actionPerformed(ActionEvent e) {
             LOGGER.info(e);
