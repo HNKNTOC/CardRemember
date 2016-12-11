@@ -14,12 +14,12 @@ public class Main {
     private static ApplicationContext context = new ClassPathXmlApplicationContext("beans/dataMenu.xml");
 
     public static void main(String[] args) {
-        Data data = context.getBean("dataMenu",Data.class);
+        Data data = context.getBean("dataMenu", Data.class);
 
-        System.out.println(data);
         MenuView menuView = new MenuView();
-
-        MenuController menuController = new MenuController(menuView,data);
+        MenuController menuController = context.getBean("menuController", MenuController.class);
+        menuController.setData(data);
+        menuController.setView(menuView);
         menuController.update();
     }
 }

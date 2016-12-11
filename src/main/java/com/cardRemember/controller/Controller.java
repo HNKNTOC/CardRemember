@@ -4,6 +4,8 @@ import com.cardRemember.help.FailedValidation;
 import com.cardRemember.help.ValidatorData;
 import com.cardRemember.model.Data;
 import com.cardRemember.model.DataType;
+import com.cardRemember.model.FailedGettingData;
+import com.cardRemember.model.FailedViewModel;
 import com.cardRemember.view.View;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -21,6 +23,10 @@ public class Controller {
         this.data = data;
         this.view = view;
         validatorData.addCustomValidator(new ValidatorDataType(view.getDataType()));
+    }
+
+    public Controller() {
+        this(new Data(DataType.Default),new DefaultView());
     }
 
     public View getView() {
@@ -60,6 +66,10 @@ public class Controller {
             this.validationDataType = validationDataType;
         }
 
+        public DataType getValidationDataType() {
+            return validationDataType;
+        }
+
         @Override
         public void validation(Data data) throws FailedValidation {
             DataType dataType = data.getDataType();
@@ -71,6 +81,35 @@ public class Controller {
                 LOGGER.warn(failedValidation);
                 throw failedValidation;
             }
+        }
+    }
+
+    private static class DefaultView implements View{
+
+        public DefaultView() {
+        }
+
+        @Override
+        public DataType getDataType() {
+            return DataType.Default;
+        }
+
+        @Override
+        public void show(Data data) throws FailedViewModel {
+            throw new UnsupportedOperationException("This a mock implementation view. Set view for controller.");
+
+        }
+
+        @Override
+        public void update() {
+            throw new UnsupportedOperationException("This a mock implementation view. Set view for controller.");
+
+        }
+
+        @Override
+        public void close() {
+            throw new UnsupportedOperationException("This a mock implementation view. Set view for controller.");
+
         }
     }
 

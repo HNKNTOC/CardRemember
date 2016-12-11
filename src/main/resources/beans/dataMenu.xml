@@ -4,9 +4,13 @@
        xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <bean name="listenerItemOne" class="com.cardRemember.controller.MenuController$ListenerItemOne"/>
+    <bean name="menuController" class="com.cardRemember.controller.MenuController"/>
 
-    <bean name="listenerSelectExercise" class="com.cardRemember.controller.MenuController$ListenerSelectExercise"/>
+    <bean name="listenerItemOne" class="com.cardRemember.controller.MenuController$ListenerItemOne"
+     factory-bean="menuController" factory-method="initListenerItemOne"/>
+
+    <bean name="listenerSelectExercise" class="com.cardRemember.controller.MenuController$ListenerSelectExercise"
+          factory-bean="menuController" factory-method="initListenerSelectExercise"/>
 
     <bean name="menuItems1" class="com.cardRemember.view.MenuView.MenuItem"
           c:label="Select Exercise" c:listeners-ref="listenerSelectExercise">

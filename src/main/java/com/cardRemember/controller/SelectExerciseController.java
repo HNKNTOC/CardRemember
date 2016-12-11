@@ -11,4 +11,8 @@ public class SelectExerciseController extends Controller{
     public SelectExerciseController(Data data, View view) {
         super(data, view);
     }
+
+    public SelectExerciseController() {
+        super();
+    }
 }

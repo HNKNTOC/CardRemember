@@ -17,14 +17,34 @@ import java.awt.event.ActionListener;
  */
 public class MenuController extends Controller {
     private static final Logger LOGGER = LogManager.getLogger(MenuController.class);
+    private static ApplicationContext context =
+            new ClassPathXmlApplicationContext("beans/dataSelectExercise.xml");
 
     public MenuController(MenuView menuView, Data data) {
         super(data, menuView);
     }
 
+    public MenuController() {
+        super();
+    }
 
-    public static class ListenerItemOne implements ActionListener{
-        private static final Logger LOGGER = LogManager.getLogger(ListenerItemOne.class);
+    public ListenerSelectExercise initListenerSelectExercise(){
+        return new ListenerSelectExercise();
+    }
+
+    public ListenerItemOne initListenerItemOne(){
+        return new ListenerItemOne();
+    }
+
+    private void showSelectExercise(){
+        View view = new SelectExerciseView();
+        Data dataSelectExercise = context.getBean("dataSelectExercise",Data.class);
+        SelectExerciseController controller = new SelectExerciseController(dataSelectExercise,view);
+        controller.update();
+    }
+
+    public class ListenerItemOne implements ActionListener{
+        private  final Logger LOGGER = LogManager.getLogger(ListenerItemOne.class);
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -32,22 +52,13 @@ public class MenuController extends Controller {
         }
     }
 
-    public static class ListenerSelectExercise implements ActionListener{
+    public class ListenerSelectExercise implements ActionListener{
         private final Logger LOGGER = LogManager.getLogger(ListenerSelectExercise.class);
-        private static ApplicationContext context =
-                new ClassPathXmlApplicationContext("beans/dataSelectExercise.xml");
 
         @Override
         public void actionPerformed(ActionEvent e) {
             LOGGER.info(e);
             showSelectExercise();
-        }
-
-        private void showSelectExercise(){
-            View view = new SelectExerciseView();
-            Data dataSelectExercise = context.getBean("dataSelectExercise",Data.class);
-            SelectExerciseController controller = new SelectExerciseController(dataSelectExercise,view);
-            controller.update();
         }
     }
 
