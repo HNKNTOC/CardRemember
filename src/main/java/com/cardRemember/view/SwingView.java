@@ -7,6 +7,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.ImageObserver;
 
 /**
  * View menu for choice menu items.
@@ -35,6 +37,7 @@ public abstract class SwingView implements View {
     public void show(Data data) throws FailedViewModel {
         try {
             processingDataFromModel(data);
+            update();
         } catch (Exception e) {
             FailedViewModel failedViewModel = new FailedViewModel("Failed processing data.", e,data);
             LOGGER.warn(failedViewModel);
@@ -45,7 +48,7 @@ public abstract class SwingView implements View {
     /**
      * Gets the data models and working with them.
      */
-    abstract void processingDataFromModel(Data data);
+    abstract void processingDataFromModel(Data data) throws ClassCastException;
 
     @Override
     public void update() {

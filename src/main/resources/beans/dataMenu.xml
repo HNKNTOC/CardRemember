@@ -6,8 +6,10 @@
 
     <bean name="listenerItemOne" class="com.cardRemember.controller.MenuController$ListenerItemOne"/>
 
+    <bean name="listenerSelectExercise" class="com.cardRemember.controller.MenuController$ListenerSelectExercise"/>
+
     <bean name="menuItems1" class="com.cardRemember.view.MenuView.MenuItem"
-          c:label="Item 1" c:listeners-ref="listenerItemOne">
+          c:label="Select Exercise" c:listeners-ref="listenerSelectExercise">
     </bean>
 
     <bean name="menuItems2" class="com.cardRemember.view.MenuView.MenuItem"
@@ -18,6 +20,7 @@
           c:label="Item 3" c:listeners-ref="listenerItemOne">
     </bean>
 
+    <!--//TODO delete value-type-->
     <util:list id="menuItemsList" value-type="java.lang.String">
         <ref bean="menuItems1"/>
         <ref bean="menuItems2"/>
@@ -35,6 +38,5 @@
             </map>
         </constructor-arg>
     </bean>
-
 
 </beans>

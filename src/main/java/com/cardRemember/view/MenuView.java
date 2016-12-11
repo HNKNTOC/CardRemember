@@ -24,10 +24,9 @@ public class MenuView extends SwingView {
 
 
     @Override
-    void processingDataFromModel(Data model) {
+    void processingDataFromModel(Data model) throws ClassCastException {
         List<MenuItem> data = (List<MenuItem>) model.getValue(KeyMenuItems);
         mainFrame.add(createMenuPanel(data));
-        update();
     }
 
     private JPanel createMenuPanel(List<MenuItem> itemsList) {

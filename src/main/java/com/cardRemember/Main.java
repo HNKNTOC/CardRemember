@@ -11,7 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
-    private static ApplicationContext context = new ClassPathXmlApplicationContext("beans/data.xml");
+    private static ApplicationContext context = new ClassPathXmlApplicationContext("beans/dataMenu.xml");
 
     public static void main(String[] args) {
         Data data = context.getBean("dataMenu",Data.class);

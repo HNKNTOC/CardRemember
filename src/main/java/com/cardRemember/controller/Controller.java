@@ -54,20 +54,20 @@ public class Controller {
 
     static class ValidatorDataType implements ValidatorData.CustomValidator{
         private static final Logger LOGGER = LogManager.getLogger(ValidatorDataType.class);
-        private final DataType dataType;
+        private final DataType validationDataType;
 
-        public ValidatorDataType(DataType dataType) {
-            this.dataType = dataType;
+        public ValidatorDataType(DataType validationDataType) {
+            this.validationDataType = validationDataType;
         }
 
         @Override
         public void validation(Data data) throws FailedValidation {
             DataType dataType = data.getDataType();
-            if (dataType != DataType.Menu) {
+            if (dataType != this.validationDataType) {
                 FailedValidation failedValidation = new FailedValidation(
                         String.format("This view not able to display data \"%s\". This view display \"%s\".",
                                 dataType,
-                                this.dataType));
+                                this.validationDataType));
                 LOGGER.warn(failedValidation);
                 throw failedValidation;
             }
