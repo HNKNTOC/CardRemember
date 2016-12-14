@@ -6,6 +6,10 @@ import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.*;
 
 
@@ -25,6 +29,13 @@ public class DataTest {
     }
 
     @Test
+    @UseDataProvider("dataForTestingExtraction")
+    public void checkGetData(String key, Object value) throws Exception {
+        data.setValue(key, value);
+        assertEquals("Failed getting data by key = " + key, data.getValue(key), value);
+    }
+
+    @Test
     public void checkClear() throws Exception {
         data.setValue(keyForString,testString);
         assertEquals(data.getSize(),1);
@@ -37,13 +48,6 @@ public class DataTest {
     @Test()
     public void checkDataType() throws Exception {
         assertTrue(data.getDataType() == DataType.Default);
-    }
-
-    @Test
-    @UseDataProvider("dataForTestingExtraction")
-    public void checkGetData(String key,Object value) throws Exception {
-        data.setValue(key,value);
-        assertEquals("Failed getting data by key = "+key,data.getValue(key),value);
     }
 
     @Test(expected=IllegalArgumentException.class)
@@ -70,7 +74,7 @@ public class DataTest {
 
     @Test()
     public void getIntOfData() throws Exception {
-        int value = 5432;
+        final int value = 5432;
         data.setValue(keyForString, value);
         assertEquals(data.getInt(keyForString),value);
     }
@@ -79,5 +83,20 @@ public class DataTest {
     public void getFailingIntOfData() throws Exception {
         data.setValue(keyForString, testString);
         data.getInt(keyForString);
+    }
+
+    @Test
+    public void getValueForClassSuccessful() throws Exception {
+        final String keyForObject = "keyForObject";
+        data.setValue(keyForObject, new ArrayList<String>());
+        ArrayList value = data.getValue(keyForObject, ArrayList.class);
+        assertThat(value, instanceOf(ArrayList.class));
+    }
+
+    @Test(expected = FailedGettingData.class)
+    public void getValueForClassFailed() throws Exception {
+        final String keyForObject = "keyForObject";
+        data.setValue(keyForObject, new HashMap<>());
+        data.getValue(keyForObject, ArrayList.class);
     }
 }

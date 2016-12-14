@@ -57,6 +57,7 @@ public class Controller {
         this.validatorData = validatorData;
     }
 
+    //TODO fix bug.
     public void update() {
         validatorData.validation(data);
         view.show(data);
