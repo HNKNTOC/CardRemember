@@ -1,7 +1,6 @@
 package com.cardRemember.view;
 import com.cardRemember.model.Data;
 import com.cardRemember.model.DataType;
-import com.cardRemember.model.FailedViewModel;
 
 
 /**

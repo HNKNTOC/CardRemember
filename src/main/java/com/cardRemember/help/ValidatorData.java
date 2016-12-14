@@ -31,21 +31,28 @@ public class ValidatorData {
      */
     public void validation(Data data) throws FailedValidation {
         for (CustomValidator customValidator : validatorList) {
-            try {
-                customValidator.validation(data);
-
-            } catch (FailedValidation e) {
-
-                FailedValidation failedValidation = new FailedValidation(String.format(
-                        "This %s fails validation by the validator %s",
-                        data,
-                        customValidator
-                ), e);
-
-                LOGGER.warn(failedValidation);
-                throw failedValidation;
+            if (!customValidator.validation(data)) {
+                failed(data, customValidator);
             }
         }
+    }
+
+    /**
+     * Use if validation failed.
+     * Throws FailedValidation
+     *
+     * @param data            Data which failed validation.
+     * @param customValidator CustomValidator which checked.
+     * @throws FailedValidation Always.
+     */
+    private void failed(Data data, CustomValidator customValidator) throws FailedValidation {
+        FailedValidation failedValidation = new FailedValidation(String.format(
+                "This %s fails validation by the validator %s",
+                data,
+                customValidator));
+
+        LOGGER.warn(failedValidation);
+        throw failedValidation;
     }
 
     /**
@@ -54,6 +61,7 @@ public class ValidatorData {
     public interface CustomValidator {
         /**
          * Custom validation for data.
+         *
          * @param data Data for validation.
          * @return true if validation successful.
          */

@@ -1,4 +1,6 @@
-package com.cardRemember.model;
+package com.cardRemember.view;
+
+import com.cardRemember.model.Data;
 
 /**
  * Used in cases if failed display model.

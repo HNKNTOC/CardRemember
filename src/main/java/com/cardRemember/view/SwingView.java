@@ -2,13 +2,10 @@ package com.cardRemember.view;
 
 import com.cardRemember.model.Data;
 import com.cardRemember.model.DataType;
-import com.cardRemember.model.FailedViewModel;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.ImageObserver;
 
 /**
  * View menu for choice menu items.

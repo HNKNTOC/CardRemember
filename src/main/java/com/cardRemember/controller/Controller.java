@@ -4,7 +4,7 @@ import com.cardRemember.help.FailedValidation;
 import com.cardRemember.help.ValidatorData;
 import com.cardRemember.model.Data;
 import com.cardRemember.model.DataType;
-import com.cardRemember.model.FailedViewModel;
+import com.cardRemember.view.FailedViewModel;
 import com.cardRemember.view.View;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -57,8 +57,7 @@ public class Controller {
         this.validatorData = validatorData;
     }
 
-    //TODO fix bug.
-    public void update() {
+    public void update() throws FailedValidation, FailedViewModel {
         validatorData.validation(data);
         view.show(data);
     }
