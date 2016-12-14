@@ -31,6 +31,7 @@ public class ValidatorData {
      */
     public void validation(Data data) throws FailedValidation {
         for (CustomValidator customValidator : validatorList) {
+            //TODO add last exception of CustomValidator in FailedValidation
             if (!customValidator.validation(data)) {
                 failed(data, customValidator);
             }
