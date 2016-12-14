@@ -55,9 +55,9 @@ public class ValidatorData {
         /**
          * Custom validation for data.
          * @param data Data for validation.
-         * @throws FailedValidation If data fails validation.
+         * @return true if validation successful.
          */
-        void validation(Data data) throws FailedValidation;
+        boolean validation(Data data) throws FailedValidation;
     }
 
 }
