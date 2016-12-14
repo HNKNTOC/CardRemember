@@ -68,6 +68,7 @@ public class Controller {
     static class ValidatorDataType implements ValidatorData.CustomValidator {
         private static final Logger LOGGER = LogManager.getLogger(ValidatorDataType.class);
         private final DataType validationDataType;
+        private String lastException = "No last exception.";
 
         public ValidatorDataType(DataType validationDataType) {
             this.validationDataType = validationDataType;
@@ -78,8 +79,12 @@ public class Controller {
         }
 
         @Override
-        public boolean validation(Data data) throws FailedValidation {
-            return (data.getDataType() == this.validationDataType);
+        public boolean validation(Data data) {
+            if (data.getDataType() == this.validationDataType) {
+                return true;
+            }
+            lastException = "DataType not equal " + this.validationDataType;
+            return false;
         }
     }
 
