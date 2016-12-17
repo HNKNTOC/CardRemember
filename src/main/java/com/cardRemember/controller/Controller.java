@@ -65,9 +65,8 @@ public class Controller {
     /**
      * This ValidatorDataType check DataType in Data.
      */
-    static class ValidatorDataType implements ValidatorData.CustomValidator {
+    public static class ValidatorDataType implements ValidatorData.CustomValidator {
         private final DataType validationDataType;
-        public static final String DEFAULT_LAST_EXCEPTION = "No last exception.";
         private String lastException = DEFAULT_LAST_EXCEPTION;
 
         public ValidatorDataType(DataType validationDataType) {

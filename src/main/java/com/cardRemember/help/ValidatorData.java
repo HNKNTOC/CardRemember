@@ -60,6 +60,9 @@ public class ValidatorData {
      * Need to add new custom checks.
      */
     public interface CustomValidator {
+
+        String DEFAULT_LAST_EXCEPTION = "No last exception.";
+
         /**
          * Custom validation for data.
          *
