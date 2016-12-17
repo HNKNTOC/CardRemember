@@ -66,9 +66,9 @@ public class Controller {
      * This ValidatorDataType check DataType in Data.
      */
     static class ValidatorDataType implements ValidatorData.CustomValidator {
-        private static final Logger LOGGER = LogManager.getLogger(ValidatorDataType.class);
         private final DataType validationDataType;
-        private String lastException = "No last exception.";
+        public static final String DEFAULT_LAST_EXCEPTION = "No last exception.";
+        private String lastException = DEFAULT_LAST_EXCEPTION;
 
         public ValidatorDataType(DataType validationDataType) {
             this.validationDataType = validationDataType;
@@ -83,8 +83,20 @@ public class Controller {
             if (data.getDataType() == this.validationDataType) {
                 return true;
             }
-            lastException = "DataType not equal " + this.validationDataType;
+            updateLastException();
             return false;
+        }
+
+        @Override
+        public String getLastException() {
+            return this.lastException;
+        }
+
+        /**
+         * Use when data not validation.
+         */
+        private void updateLastException() {
+            this.lastException = "DataType not equal " + this.validationDataType;
         }
     }
 

@@ -7,8 +7,9 @@ import com.cardRemember.model.DataType;
 import com.cardRemember.view.View;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class ControllerTest {
@@ -64,6 +65,7 @@ public class ControllerTest {
         Data mock = mock(Data.class);
         when(mock.getDataType()).thenReturn(DataType.Default);
         assertTrue(validator.validation(mock));
+        assertThat(validator.getLastException(), is(Controller.ValidatorDataType.DEFAULT_LAST_EXCEPTION));
     }
 
     @Test
@@ -71,5 +73,6 @@ public class ControllerTest {
         Data mock = mock(Data.class);
         when(mock.getDataType()).thenReturn(DataType.Menu);
         assertFalse(validator.validation(mock));
+        assertThat(validator.getLastException(), not(Controller.ValidatorDataType.DEFAULT_LAST_EXCEPTION));
     }
 }

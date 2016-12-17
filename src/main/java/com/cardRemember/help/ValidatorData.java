@@ -31,7 +31,6 @@ public class ValidatorData {
      */
     public void validation(Data data) throws FailedValidation {
         for (CustomValidator customValidator : validatorList) {
-            //TODO add last exception of CustomValidator in FailedValidation
             if (!customValidator.validation(data)) {
                 failed(data, customValidator);
             }
@@ -48,9 +47,10 @@ public class ValidatorData {
      */
     private void failed(Data data, CustomValidator customValidator) throws FailedValidation {
         FailedValidation failedValidation = new FailedValidation(String.format(
-                "This %s fails validation by the validator %s",
+                "This %s fails validation by the validator %s Read more: %s",
                 data,
-                customValidator));
+                customValidator,
+                customValidator.getLastException()));
 
         LOGGER.warn(failedValidation);
         throw failedValidation;
@@ -66,7 +66,9 @@ public class ValidatorData {
          * @param data Data for validation.
          * @return true if validation successful.
          */
-        boolean validation(Data data) throws FailedValidation;
+        boolean validation(Data data);
+
+        String getLastException();
     }
 
 }
