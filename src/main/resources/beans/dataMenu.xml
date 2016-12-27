@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean name="menuController" class="com.cardRemember.controller.MenuController"/>
+
+    <bean name="listenerItemOne" class="com.cardRemember.controller.MenuController$ListenerItemOne"
+     factory-bean="menuController" factory-method="initListenerItemOne"/>
+
+    <bean name="listenerSelectExercise" class="com.cardRemember.controller.MenuController$ListenerSelectExercise"
+          factory-bean="menuController" factory-method="initListenerSelectExercise"/>
+
+    <bean name="menuItems1" class="com.cardRemember.view.MenuView.MenuItem"
+          c:label="Select Exercise" c:listeners-ref="listenerSelectExercise">
+    </bean>
+
+    <bean name="menuItems2" class="com.cardRemember.view.MenuView.MenuItem"
+          c:label="Item 2" c:listeners-ref="listenerItemOne">
+    </bean>
+
+    <bean name="menuItems3" class="com.cardRemember.view.MenuView.MenuItem"
+          c:label="Item 3" c:listeners-ref="listenerItemOne">
+    </bean>
+
+    <!--//TODO delete value-type-->
+    <util:list id="menuItemsList" value-type="java.lang.String">
+        <ref bean="menuItems1"/>
+        <ref bean="menuItems2"/>
+        <ref bean="menuItems3"/>
+    </util:list>
+
+    <bean name="dataMenu" class="com.cardRemember.model.Data" c:dataType="Menu">
+        <constructor-arg name="mapData">
+            <map>
+                <entry value-ref="menuItemsList">
+                    <key>
+                        <util:constant static-field="com.cardRemember.view.MenuView.KeyMenuItems"/>
+                    </key>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+</beans>

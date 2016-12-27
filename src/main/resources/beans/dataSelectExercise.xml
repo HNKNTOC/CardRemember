@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="exercise1" class="com.cardRemember.model.Exercise"
+          c:name="exercise 1"/>
+    <bean id="exercise2" class="com.cardRemember.model.Exercise"
+          c:name="exercise 2"/>
+    <bean id="exercise3" class="com.cardRemember.model.Exercise"
+          c:name="exercise 3"/>
+    <bean id="exercise4" class="com.cardRemember.model.Exercise"
+          c:name="exercise 4"/>
+
+    <util:list id="listSelectExercise">
+        <ref bean="exercise1"/>
+        <ref bean="exercise2"/>
+        <ref bean="exercise3"/>
+        <ref bean="exercise4"/>
+    </util:list>
+
+    <bean name="dataSelectExercise" class="com.cardRemember.model.Data" c:dataType="SelectExercise">
+        <constructor-arg name="mapData">
+            <map>
+                <entry value-ref="listSelectExercise">
+                    <key>
+                        <util:constant static-field="com.cardRemember.view.SelectExerciseView.listExercise"/>
+                    </key>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+
+</beans>
